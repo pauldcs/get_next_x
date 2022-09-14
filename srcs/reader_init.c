@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:16:30 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/14 18:45:45 by pducos           ###   ########.fr       */
+/*   Updated: 2022/09/14 21:28:55 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ bool	reader_init(t_reader *r, int fd)
 	if (read(r->fd, 0, 0) != -1)
 	{
 		r->eof = false;
-		r->sv.str = NULL;
-		r->sv.len = 0;
+		r->sv.buf = NULL;
+		r->sv.size = 0;
 		r->checked = 0;
 		r->cap = 0;
 		return (true);

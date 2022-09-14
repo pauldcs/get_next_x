@@ -13,17 +13,17 @@ typedef struct s_reader
 	bool	eof;
 	size_t	cap;
 	size_t	checked;
-	struct	s_str {
-		const char	*str;
-		size_t		len;
+	struct	s_save {
+		const char	*buf;
+		size_t		size;
 	}	sv;
 }	t_reader;
 
  
-ssize_t	get_next_x(unsigned char **buf, int c, t_reader *r);
+ssize_t	get_next_x(unsigned char **buf, int chacarter, t_reader *reader);
 
-bool	reader_init(t_reader *r, int fd);
-void	reader_destroy(t_reader *r);
+bool	reader_init(t_reader *reader, int fd);
+void	reader_destroy(t_reader *reader);
 
 //utils
 	bool	ft_alloc(void **ptr, size_t size);
