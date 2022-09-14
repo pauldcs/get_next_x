@@ -16,11 +16,9 @@ int main(int ac, char **av)
 	{
 		while ((ret = get_next_x(&line, '\n', &reader)) != -1)
 		{
-			//printf ("ret = %lu\n", ret);
-			//printf ("expected = %lu\n", strlen(line));
 			write (1, line, ret);
 			write (1, "\n", 1);
-			//printf ("%s\n", line);
+			//printf("%s\n", line);
 			free(line);
 		}
 		reader_destroy(&reader);

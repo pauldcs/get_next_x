@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/14 22:47:35 by pducos           ###   ########.fr       */
+/*   Updated: 2022/09/14 23:07:03 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static bool	search_char(t_reader *r, int c, unsigned char *buf, size_t len)
 			continue ;
 		*ptr++ = '\0';
 		len -= ptr - buf;
-		if (len && *ptr)
+		if (len)
 		{
 			if (!ft_alloc((void **)&r->sv.buf, len)
 				|| !memcpy((void *)r->sv.buf, ptr, len))
