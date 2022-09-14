@@ -2,6 +2,7 @@
 # define GET_NEXT_X_H
 
 #include <stdbool.h>
+#include <sys/types.h>
 #include <stddef.h>
 
 # define READ_SIZE 64
@@ -18,7 +19,7 @@ typedef struct s_reader
 	}	sv;
 }	t_reader;
 
-bool	get_next_x(char **line, int c, t_reader *r);
+ssize_t	get_next_x(char **line, int c, t_reader *r);
 bool	reader_init(t_reader *r, int fd);
 void	reader_destroy(t_reader *r);
 
