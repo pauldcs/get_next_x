@@ -7,9 +7,9 @@
 
 int main(int ac, char **av)
 {
-	char		*line;
-	ssize_t		ret;
-	t_reader 	reader;
+	unsigned char	*line;
+	ssize_t			ret;
+	t_reader 		reader;
 
 	if (ac == 2
 		&& reader_init(&reader, open(av[1], O_RDONLY)))

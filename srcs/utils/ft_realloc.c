@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:28 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/14 18:25:37 by pducos           ###   ########.fr       */
+/*   Updated: 2022/09/14 21:12:18 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static bool	__alloc(void **ptr, size_t size)
 	return (true);
 }
 
-bool    ft_realloc(char **buf, size_t *cap, size_t len, size_t new_cap)
+bool    ft_realloc(void **buf, size_t *cap, size_t len, size_t new_cap)
 {
-    char    *new_buf;
+   void    *new_buf;
 
-    if (!__alloc((void **)&new_buf, new_cap))
+    if (!__alloc(&new_buf, new_cap))
         return (false);
     memcpy(new_buf, *buf, len);
     free(*buf);

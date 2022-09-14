@@ -19,12 +19,14 @@ typedef struct s_reader
 	}	sv;
 }	t_reader;
 
-ssize_t	get_next_x(char **line, int c, t_reader *r);
+ 
+ssize_t	get_next_x(unsigned char **buf, int c, t_reader *r);
+
 bool	reader_init(t_reader *r, int fd);
 void	reader_destroy(t_reader *r);
 
 //utils
 	bool	ft_alloc(void **ptr, size_t size);
-	bool	ft_realloc(char **buf, size_t *cap, size_t len, size_t new_cap);
+	bool	ft_realloc(void **buf, size_t *cap, size_t len, size_t new_cap);
 
 #endif
