@@ -49,9 +49,9 @@ check_diff()
 }
 
 for file in $TEST_FILES; do
-	python3 tester/gnl.py $file | xxd > .expected
+	python3 tester/reader.py $file | xxd > .expected
 	if [ $VALGRIND = true ]; then
-		valgrind --leak-check=full --show-leak-kinds=all --log-file=log.txt -q ./get_next_x $file | xxd > .out
+		valgrind --leak-check=full --show-leak-kinds=all --log-file=log.txt -q ./line_reader $file | xxd > .out
 	else
 		./line_reader $file | xxd > .out
 	fi

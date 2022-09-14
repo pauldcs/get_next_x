@@ -6,12 +6,11 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/14 23:47:10 by pducos           ###   ########.fr       */
+/*   Updated: 2022/09/15 00:43:51 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_reader.h"
-#include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -26,14 +25,11 @@ static bool	init_buf(t_reader *r, uint8_t **buf, size_t *size)
 	}
 	else
 	{
-		if (!ft_alloc((void **)buf, READ_SIZE + 1))
+		if (!ft_alloc((void **)buf, 64 + 1))
 			return (false);
-		r->cap = READ_SIZE;
+		r->cap = 64;
 		*size = 0;
 	}
-	r->sv.buf = NULL;
-	r->sv.size = 0;
-	r->checked = 0;
 	return (true);
 }
 
@@ -70,14 +66,16 @@ ssize_t	line_reader(uint8_t **buf, int c, t_reader *r)
 
 	if (!init_buf(r, buf, &size))
 		return (-1);
+	r->sv.size = 0;
+	r->checked = 0;
+	r->sv.buf = NULL;
 	while (!search_char(r, c, *buf, size))
 	{
-		if (size >= r->cap - 1
+		if (size >= r->cap
 			&& !ft_realloc((void **)buf, &r->cap, size, r->cap * 2 + 1))
 			return (-1);
-		ret = read(r->fd, &(*buf)[size], r->cap - size - 1);
-		if (ret == -1
-			|| (!ret && !size))
+		ret = read(r->fd, &(*buf)[size], r->cap - size);
+		if (ret == -1 || (!ret && !size))
 			return (free(*buf), -1);
 		else if (!ret)
 			return (size);

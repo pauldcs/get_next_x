@@ -11,17 +11,16 @@ int main(int ac, char **av)
 	ssize_t			ret;
 	t_reader 		reader;
 
-	if (ac == 2
-		&& reader_init(&reader, open(av[1], O_RDONLY)))
+	if (ac == 2 && reader_init(&reader, open(av[1], O_RDONLY)))
 	{
 		while ((ret = line_reader(&line, '\n', &reader)) != -1)
 		{
-			write (1, line, ret);
-			write (1, "\n", 1);
+			write(STDOUT_FILENO, line, ret);
+			write(STDOUT_FILENO, "\n", 1);
 			free(line);
 		}
 		reader_destroy(&reader);
-		return (0);
+		return (EXIT_SUCCESS);
 	}
-	return 1;
+	return (EXIT_FAILURE);
 }

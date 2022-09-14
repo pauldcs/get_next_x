@@ -6,13 +6,12 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:16:30 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/14 23:22:24 by pducos           ###   ########.fr       */
+/*   Updated: 2022/09/15 00:19:30 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "line_reader.h"
 #include <stdbool.h>
-#include <stddef.h>
 #include <unistd.h>
 
 bool	reader_init(t_reader *r, int fd)
@@ -26,6 +25,6 @@ bool	reader_init(t_reader *r, int fd)
 		r->cap = 0;
 		return (true);
 	}
-	write(STDERR_FILENO, "init_reader error\n", 18);
+	write(STDERR_FILENO, "reader_init error\n", 18);
 	return (false);
 }

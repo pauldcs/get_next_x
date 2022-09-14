@@ -1,2 +1,2 @@
-# get_next_x
+# line_reader
 Improvements on my get_next_line

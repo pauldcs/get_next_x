@@ -1,11 +1,10 @@
 #ifndef LINE_READER_H
 # define LINE_READER_H
 
-#include <stdbool.h>
-#include <sys/types.h>
-#include <stddef.h>
-
-# define READ_SIZE 64
+# include <stdbool.h>
+# include <sys/types.h>
+# include <stdint.h>
+# include <stddef.h>
 
 typedef struct s_reader
 {
@@ -13,8 +12,8 @@ typedef struct s_reader
 	size_t	checked;
 	size_t	cap;
 	struct	s_save {
-		const char	*buf;
-		size_t		size;
+		uint8_t	*buf;
+		size_t	size;
 	}	sv;
 }	t_reader;
 
