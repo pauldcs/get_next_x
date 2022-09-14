@@ -10,6 +10,7 @@ SRCS :=\
 	test_main.c 			\
 	utils/ft_alloc.c 		\
 	utils/ft_realloc.c 		\
+	utils/ft_memcpy.c 		\
 	line_reader.c 			\
 	reader_init.c 			\
 	reader_destroy.c 		\

@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/12 16:17:28 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/14 23:47:20 by pducos           ###   ########.fr       */
+/*   Created: 2022/09/14 23:45:59 by pducos            #+#    #+#             */
+/*   Updated: 2022/09/14 23:46:02 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line_reader.h"
 #include <stddef.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include <stdint.h>
 
-bool    ft_realloc(void **buf, size_t *cap, size_t len, size_t new_cap)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-   void    *new_buf;
+	uint8_t	*tmp;
 
-    if (!ft_alloc(&new_buf, new_cap))
-        return (false);
-    ft_memcpy(new_buf, *buf, len);
-    free(*buf);
-    *buf = new_buf;
-    *cap = new_cap;
-    return (true);
+	tmp = dst;
+	while (n--)
+		*(tmp++) = *(uint8_t *)src++;
+	return (dst);
 }
