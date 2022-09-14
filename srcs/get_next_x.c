@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/14 23:07:03 by pducos           ###   ########.fr       */
+/*   Updated: 2022/09/14 23:11:58 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ ssize_t	get_next_x(unsigned char **buf, int c, t_reader *r)
 	size_t	size;
 	int		ret;
 
-	if (r->eof || !init_buf(r, buf, &size))
+	if (!init_buf(r, buf, &size))
 		return (-1);
 	while (!search_char(r, c, *buf, size))
 	{
@@ -80,10 +80,7 @@ ssize_t	get_next_x(unsigned char **buf, int c, t_reader *r)
 			|| (!ret && !size))
 			return (free(*buf), -1);
 		else if (!ret)
-		{
-			r->eof = true;
 			return (size);
-		}
 		size += ret;
 	}
 	return (size - r->sv.size - 1);

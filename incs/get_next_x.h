@@ -10,7 +10,6 @@
 typedef struct s_reader
 {
 	int		fd;
-	bool	eof;
 	size_t	cap;
 	size_t	checked;
 	struct	s_save {
