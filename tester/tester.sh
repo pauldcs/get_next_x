@@ -53,7 +53,7 @@ for file in $TEST_FILES; do
 	if [ $VALGRIND = true ]; then
 		valgrind --leak-check=full --show-leak-kinds=all --log-file=log.txt -q ./get_next_x $file | xxd > .out
 	else
-		./get_next_x $file | xxd > .out
+		./line_reader $file | xxd > .out
 	fi
 	printf "$(basename $file) " && python3 -c "print(('.' * (40 - len('$file'))), end='')" 
 	check_diff

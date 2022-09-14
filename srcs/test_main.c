@@ -1,4 +1,4 @@
-#include "get_next_x.h"
+#include "line_reader.h"
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -14,7 +14,7 @@ int main(int ac, char **av)
 	if (ac == 2
 		&& reader_init(&reader, open(av[1], O_RDONLY)))
 	{
-		while ((ret = get_next_x(&line, '\n', &reader)) != -1)
+		while ((ret = line_reader(&line, '\n', &reader)) != -1)
 		{
 			write (1, line, ret);
 			write (1, "\n", 1);

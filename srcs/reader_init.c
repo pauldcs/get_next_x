@@ -6,11 +6,11 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:16:30 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/14 23:11:38 by pducos           ###   ########.fr       */
+/*   Updated: 2022/09/14 23:22:24 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_x.h"
+#include "line_reader.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include <unistd.h>

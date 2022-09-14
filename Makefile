@@ -1,4 +1,4 @@
-include .get_next_x.mk
+include .line_reader.mk
 
 SRCS_OBJS := $(patsubst %.c,$(OBJS_DIR)/%.o,$(SRCS))
 

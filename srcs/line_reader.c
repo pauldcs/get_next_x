@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_x.c                                       :+:      :+:    :+:   */
+/*   line_reader.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/14 23:11:58 by pducos           ###   ########.fr       */
+/*   Updated: 2022/09/14 23:23:29 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_x.h"
+#include "line_reader.h"
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-static bool	init_buf(t_reader *r, unsigned char **buf, size_t *size)
+static bool	init_buf(t_reader *r, uint8_t **buf, size_t *size)
 {	
 	if (r->sv.buf)
 	{
-		*buf = (unsigned char *)r->sv.buf;
+		*buf = (uint8_t *)r->sv.buf;
 		*size = r->sv.size;
 		r->cap = *size;
 	}
@@ -37,15 +38,16 @@ static bool	init_buf(t_reader *r, unsigned char **buf, size_t *size)
 	return (true);
 }
 
-static bool	search_char(t_reader *r, int c, unsigned char *buf, size_t len)
+static bool	search_char(t_reader *r, int c, uint8_t *buf, size_t len)
 {
-	unsigned char	*ptr;
-	size_t			n;
+	uint8_t	*ptr;
+	size_t	n;
 
 	ptr = buf + r->checked;
 	n = len - r->checked;
 	while (n--)
 	{
+		r->checked++;
 		if (*ptr != c && ptr++)
 			continue ;
 		*ptr++ = '\0';
@@ -59,11 +61,10 @@ static bool	search_char(t_reader *r, int c, unsigned char *buf, size_t len)
 		}
 		return (true);
 	}
-	r->checked = ptr - buf;
 	return (false);
 }
 
-ssize_t	get_next_x(unsigned char **buf, int c, t_reader *r)
+ssize_t	line_reader(uint8_t **buf, int c, t_reader *r)
 {
 	size_t	size;
 	int		ret;

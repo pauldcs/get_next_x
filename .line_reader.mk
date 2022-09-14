@@ -1,4 +1,4 @@
-NAME		:= get_next_x
+NAME		:= line_reader
 CC			:= gcc
 CFLAGS 		:= -Wall -Wextra -Werror -g3
 
@@ -10,7 +10,7 @@ SRCS :=\
 	test_main.c 			\
 	utils/ft_alloc.c 		\
 	utils/ft_realloc.c 		\
-	get_next_x.c 			\
+	line_reader.c 			\
 	reader_init.c 			\
 	reader_destroy.c 		\
 
