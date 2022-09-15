@@ -9,12 +9,12 @@
 typedef struct s_reader
 {
 	int		fd;
-	size_t	checked;
 	size_t	cap;
+	size_t	checked;
 	struct	s_save {
 		uint8_t	*buf;
 		size_t	size;
-	}	sv;
+	}	save;
 }	t_reader;
 
  

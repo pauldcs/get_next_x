@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/15 00:43:51 by pducos           ###   ########.fr       */
+/*   Updated: 2022/09/15 12:42:17 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 static bool	init_buf(t_reader *r, uint8_t **buf, size_t *size)
 {	
-	if (r->sv.buf)
+	if (r->save.buf)
 	{
-		*buf = (uint8_t *)r->sv.buf;
-		*size = r->sv.size;
+		*buf = (uint8_t *)r->save.buf;
+		*size = r->save.size;
 		r->cap = *size;
 	}
 	else
@@ -49,10 +49,10 @@ static bool	search_char(t_reader *r, int c, uint8_t *buf, size_t len)
 		len -= ptr - buf;
 		if (len)
 		{
-			if (!ft_alloc((void **)&r->sv.buf, len)
-				|| !ft_memcpy((void *)r->sv.buf, ptr, len))
+			if (!ft_alloc((void *)&r->save.buf, len)
+				|| !ft_memcpy((void *)r->save.buf, ptr, len))
 				return (false);
-			r->sv.size = len;
+			r->save.size = len;
 		}
 		return (true);
 	}
@@ -66,13 +66,13 @@ ssize_t	line_reader(uint8_t **buf, int c, t_reader *r)
 
 	if (!init_buf(r, buf, &size))
 		return (-1);
-	r->sv.size = 0;
+	r->save.buf = NULL;
+	r->save.size = 0;
 	r->checked = 0;
-	r->sv.buf = NULL;
 	while (!search_char(r, c, *buf, size))
 	{
 		if (size >= r->cap
-			&& !ft_realloc((void **)buf, &r->cap, size, r->cap * 2 + 1))
+			&& !ft_realloc((void *)buf, &r->cap, size, r->cap * 2 + 1))
 			return (-1);
 		ret = read(r->fd, &(*buf)[size], r->cap - size);
 		if (ret == -1 || (!ret && !size))
@@ -81,5 +81,5 @@ ssize_t	line_reader(uint8_t **buf, int c, t_reader *r)
 			return (size);
 		size += ret;
 	}
-	return (size - r->sv.size - 1);
+	return (size - r->save.size - 1);
 }

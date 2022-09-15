@@ -20,6 +20,7 @@ int main(int ac, char **av)
 			free(line);
 		}
 		reader_destroy(&reader);
+		close(reader.fd);
 		return (EXIT_SUCCESS);
 	}
 	return (EXIT_FAILURE);
