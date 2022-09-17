@@ -6,11 +6,14 @@
 # include <stdint.h>
 # include <stddef.h>
 
+# define INITIAL_CAP 64
+
 typedef struct s_reader
 {
 	int		fd;
 	size_t	cap;
 	size_t	checked;
+	bool	err;
 	struct	s_save {
 		uint8_t	*buf;
 		size_t	size;

@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/15 12:42:17 by pducos           ###   ########.fr       */
+/*   Updated: 2022/09/16 18:22:31 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static bool	init_buf(t_reader *r, uint8_t **buf, size_t *size)
 	}
 	else
 	{
-		if (!ft_alloc((void **)buf, 64 + 1))
+		if (!ft_alloc((void **)buf, INITIAL_CAP))
 			return (false);
-		r->cap = 64;
+		r->cap = INITIAL_CAP;
 		*size = 0;
 	}
 	return (true);
@@ -72,7 +72,7 @@ ssize_t	line_reader(uint8_t **buf, int c, t_reader *r)
 	while (!search_char(r, c, *buf, size))
 	{
 		if (size >= r->cap
-			&& !ft_realloc((void *)buf, &r->cap, size, r->cap * 2 + 1))
+			&& !ft_realloc((void *)buf, &r->cap, size, r->cap * 2))
 			return (-1);
 		ret = read(r->fd, &(*buf)[size], r->cap - size);
 		if (ret == -1 || (!ret && !size))
