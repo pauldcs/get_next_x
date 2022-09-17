@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/16 18:22:31 by pducos           ###   ########.fr       */
+/*   Updated: 2022/09/17 12:38:47 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+static bool is_sep(char *sep, int c)
+{
+	while (*sep)
+	{
+		if (*sep == c)
+			return (true);
+		sep++;
+	}
+	return (false);
+}
 
 static bool	init_buf(t_reader *r, uint8_t **buf, size_t *size)
 {	
@@ -33,7 +44,7 @@ static bool	init_buf(t_reader *r, uint8_t **buf, size_t *size)
 	return (true);
 }
 
-static bool	search_char(t_reader *r, int c, uint8_t *buf, size_t len)
+static bool	search_char(t_reader *r, char *sep, uint8_t *buf, size_t len)
 {
 	uint8_t	*ptr;
 	size_t	n;
@@ -43,7 +54,7 @@ static bool	search_char(t_reader *r, int c, uint8_t *buf, size_t len)
 	while (n--)
 	{
 		r->checked++;
-		if (*ptr != c && ptr++)
+		if (!is_sep(sep, *ptr) && ptr++)
 			continue ;
 		*ptr++ = '\0';
 		len -= ptr - buf;
@@ -59,7 +70,7 @@ static bool	search_char(t_reader *r, int c, uint8_t *buf, size_t len)
 	return (false);
 }
 
-ssize_t	line_reader(uint8_t **buf, int c, t_reader *r)
+ssize_t	line_reader(uint8_t **buf, char *sep, t_reader *r)
 {
 	size_t	size;
 	int		ret;
@@ -69,7 +80,7 @@ ssize_t	line_reader(uint8_t **buf, int c, t_reader *r)
 	r->save.buf = NULL;
 	r->save.size = 0;
 	r->checked = 0;
-	while (!search_char(r, c, *buf, size))
+	while (!search_char(r, sep, *buf, size))
 	{
 		if (size >= r->cap
 			&& !ft_realloc((void *)buf, &r->cap, size, r->cap * 2))

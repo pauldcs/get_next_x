@@ -13,10 +13,14 @@ int main(int ac, char **av)
 
 	if (ac == 2 && reader_init(&reader, open(av[1], O_RDONLY)))
 	{
-		while ((ret = line_reader(&line, '\n', &reader)) != -1)
+		while ((ret = line_reader(&line, " \t\n", &reader)) != -1)
 		{
-			write(STDOUT_FILENO, line, ret);
-			write(STDOUT_FILENO, "\n", 1);
+			if (*line)
+			{
+				write(1, "line: '", 7);
+				write(STDOUT_FILENO, line, ret);
+				write(STDOUT_FILENO, "'\n", 2);
+			}
 			free(line);
 		}
 		reader_destroy(&reader);

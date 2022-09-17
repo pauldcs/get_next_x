@@ -21,7 +21,7 @@ typedef struct s_reader
 }	t_reader;
 
  
-ssize_t	line_reader(uint8_t **buf, int chacarter, t_reader *reader);
+ssize_t	line_reader(uint8_t **buf, char *sep, t_reader *reader);
 bool	reader_init(t_reader *reader, int fd);
 void	reader_destroy(t_reader *reader);
 
