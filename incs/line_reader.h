@@ -13,14 +13,13 @@ typedef struct s_reader
 	int		fd;
 	size_t	cap;
 	size_t	checked;
-	bool	err;
+	//bool	err;
 	struct	s_save {
 		uint8_t	*buf;
 		size_t	size;
 	}	save;
 }	t_reader;
 
- 
 ssize_t	line_reader(uint8_t **buf, char *sep, t_reader *reader);
 bool	reader_init(t_reader *reader, int fd);
 void	reader_destroy(t_reader *reader);

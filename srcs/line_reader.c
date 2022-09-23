@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/17 12:38:47 by pducos           ###   ########.fr       */
+/*   Updated: 2022/09/22 23:36:22 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+/*
+	add flags to only parse null bytes on binary mode
+*/
 
 static bool is_sep(char *sep, int c)
 {
