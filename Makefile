@@ -1,4 +1,4 @@
-include .line_reader.mk
+include .reader.mk
 
 SRCS_OBJS := $(patsubst %.c,$(OBJS_DIR)/%.o,$(SRCS))
 
@@ -9,7 +9,7 @@ $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c
 all: $(NAME)
 
 $(NAME): $(SRCS_OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) $(SRCS_OBJS) -I $(INCS_DIR)
+	$(CC) $(CFLAGS) -o $(NAME) main.c $(SRCS_OBJS) -I $(INCS_DIR)
 
 test: all
 	@bash tester/tester.sh

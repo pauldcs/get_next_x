@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line_reader.c                                      :+:      :+:    :+:   */
+/*   reader.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/22 23:36:22 by pducos           ###   ########.fr       */
+/*   Updated: 2022/10/03 00:12:33 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line_reader.h"
+#include "reader.h"
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-/*
-	add flags to only parse null bytes on binary mode
-*/
-
-static bool is_sep(char *sep, int c)
+static bool	is_sep(char *sep, int c)
 {
 	while (*sep)
 	{
@@ -40,7 +36,7 @@ static bool	init_buf(t_reader *r, uint8_t **buf, size_t *size)
 	}
 	else
 	{
-		if (!ft_alloc((void **)buf, INITIAL_CAP))
+		if (!r_alloc((void **)buf, INITIAL_CAP + 1))
 			return (false);
 		r->cap = INITIAL_CAP;
 		*size = 0;
@@ -64,8 +60,8 @@ static bool	search_char(t_reader *r, char *sep, uint8_t *buf, size_t len)
 		len -= ptr - buf;
 		if (len)
 		{
-			if (!ft_alloc((void *)&r->save.buf, len)
-				|| !ft_memcpy((void *)r->save.buf, ptr, len))
+			if (!r_alloc((void *)&r->save.buf, len)
+				|| !r_memcpy((void *)r->save.buf, ptr, len))
 				return (false);
 			r->save.size = len;
 		}
@@ -74,7 +70,7 @@ static bool	search_char(t_reader *r, char *sep, uint8_t *buf, size_t len)
 	return (false);
 }
 
-ssize_t	line_reader(uint8_t **buf, char *sep, t_reader *r)
+ssize_t	reader(uint8_t **buf, t_reader *r, char *sep)
 {
 	size_t	size;
 	int		ret;
@@ -87,7 +83,7 @@ ssize_t	line_reader(uint8_t **buf, char *sep, t_reader *r)
 	while (!search_char(r, sep, *buf, size))
 	{
 		if (size >= r->cap
-			&& !ft_realloc((void *)buf, &r->cap, size, r->cap * 2))
+			&& !r_realloc((void *)buf, &r->cap, size, r->cap * 2))
 			return (-1);
 		ret = read(r->fd, &(*buf)[size], r->cap - size);
 		if (ret == -1 || (!ret && !size))

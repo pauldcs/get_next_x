@@ -6,23 +6,24 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:16:30 by pducos            #+#    #+#             */
-/*   Updated: 2022/09/22 23:35:46 by pducos           ###   ########.fr       */
+/*   Updated: 2022/10/02 23:51:34 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "line_reader.h"
+#include "reader.h"
+#include <fcntl.h>
 #include <stdbool.h>
-#include <unistd.h>
 
-bool	reader_init(t_reader *r, int fd)
+t_reader	*reader_init(const char *file)
 {
-	r->fd = fd;
-	if (read(r->fd, 0, 0) != -1)
+	static t_reader	r;
+
+	r.fd = open(file, O_RDONLY);
+	if (r.fd != -1)
 	{
-		r->save.buf = NULL;
-		r->save.size = 0;
-		return (true);
+		r.save.buf = NULL;
+		r.save.size = 0;
+		return (&r);
 	}
-	write(STDERR_FILENO, "reader_init error\n", 18);
-	return (false);
+	return (NULL);
 }

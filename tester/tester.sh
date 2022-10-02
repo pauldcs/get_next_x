@@ -21,6 +21,8 @@ check_diff()
 			cat log.txt
 			echo "+--------------------------------------------------------------------+"
 			rm -f log.txt
+			rm .out .expected
+			exit 0
 		else
 			printf "\n"
 	fi
@@ -33,6 +35,8 @@ check_diff()
 			cat log.txt
 			echo "+--------------------------------------------------------------------+"
 			rm -f log.txt
+			rm .out .expected
+			exit 0
 		else
 			printf "\n"
 			echo "+--------------------------------------------------------------------+"
@@ -45,15 +49,17 @@ check_diff()
 		fi
 		echo "+--------------------------------------------------------------------+"
 		rm -f log.txt
+		rm .out .expected
+		exit 0
 	fi
 }
 
 for file in $TEST_FILES; do
 	python3 tester/reader.py $file | xxd > .expected
 	if [ $VALGRIND = true ]; then
-		valgrind --leak-check=full --show-leak-kinds=all --log-file=log.txt -q ./line_reader $file | xxd > .out
+		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --log-file=log.txt -q ./reader $file | xxd > .out
 	else
-		./line_reader $file | xxd > .out
+		./reader $file | xxd > .out
 	fi
 	printf "$(basename $file) " && python3 -c "print(('.' * (40 - len('$file'))), end='')" 
 	check_diff
