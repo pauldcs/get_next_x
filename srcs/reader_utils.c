@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 23:22:14 by pducos            #+#    #+#             */
-/*   Updated: 2022/10/03 00:12:11 by pducos           ###   ########.fr       */
+/*   Updated: 2022/10/03 00:51:07 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-bool	r_alloc(void **ptr, size_t size)
+bool	r_alloc(uint8_t **ptr, size_t size)
 {
-	char	*s;
+	uint8_t	*s;
 
 	*ptr = malloc(size);
 	if (!*ptr)
@@ -29,9 +29,9 @@ bool	r_alloc(void **ptr, size_t size)
 	return (true);
 }
 
-bool	r_realloc(void **buf, size_t *cap, size_t len, size_t new_cap)
+bool	r_realloc(uint8_t **buf, size_t *cap, size_t len, size_t new_cap)
 {
-	void	*new_buf;
+	uint8_t	*new_buf;
 
 	new_buf = NULL;
 	if (!r_alloc(&new_buf, new_cap))
@@ -43,12 +43,12 @@ bool	r_realloc(void **buf, size_t *cap, size_t len, size_t new_cap)
 	return (true);
 }
 
-void	*r_memcpy(void *dst, const void *src, size_t n)
+void	*r_memcpy(uint8_t *dst, const uint8_t *src, size_t n)
 {
 	uint8_t	*tmp;
 
 	tmp = dst;
 	while (n--)
-		*(tmp++) = *(uint8_t *)src++;
+		*(tmp++) = *src++;
 	return (dst);
 }

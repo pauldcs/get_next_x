@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/10/03 00:31:02 by pducos           ###   ########.fr       */
+/*   Updated: 2022/10/03 00:48:05 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static bool	init_buf(t_reader *r, uint8_t **buf, size_t *size)
 	}
 	else
 	{
-		if (!r_alloc((void **)buf, INITIAL_CAP))
+		if (!r_alloc(buf, INITIAL_CAP))
 			return (false);
 		r->cap = INITIAL_CAP;
 		*size = 0;
@@ -60,8 +60,8 @@ static bool	search_char(t_reader *r, char *sep, uint8_t *buf, size_t len)
 		len -= ptr - buf;
 		if (len)
 		{
-			if (!r_alloc((void *)&r->save.buf, len)
-				|| !r_memcpy((void *)r->save.buf, ptr, len))
+			if (!r_alloc(&r->save.buf, len)
+				|| !r_memcpy(r->save.buf, ptr, len))
 				return (false);
 			r->save.size = len;
 		}
