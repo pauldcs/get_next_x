@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pducos <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:08:32 by pducos            #+#    #+#             */
-/*   Updated: 2022/10/03 00:09:16 by pducos           ###   ########.fr       */
+/*   Updated: 2022/10/03 00:26:28 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "reader.h"
+#include "srcs/reader.h"
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>

@@ -4,12 +4,12 @@ SRCS_OBJS := $(patsubst %.c,$(OBJS_DIR)/%.o,$(SRCS))
 
 $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c
 	@mkdir -vp $(dir $@)
-	$(CC) $(CFLAGS) -o $@ -MMD -c $< -I $(INCS_DIR) -g3
+	$(CC) $(CFLAGS) -o $@ -MMD -c $< -I. -g3
 
 all: $(NAME)
 
 $(NAME): $(SRCS_OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) main.c $(SRCS_OBJS) -I $(INCS_DIR)
+	$(CC) $(CFLAGS) -o $(NAME) main.c $(SRCS_OBJS) -I.
 
 test: all
 	@bash tester/tester.sh
