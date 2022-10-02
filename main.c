@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:08:32 by pducos            #+#    #+#             */
-/*   Updated: 2022/10/03 00:26:28 by pducos           ###   ########.fr       */
+/*   Updated: 2022/10/03 00:33:33 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	main(int ac, char **av)
 		{
 			while ((ret = reader(&line, r, "\n")) != -1)
 			{
-				printf("%s\n", line);
+				//printf ("%s\n", line);
+				write (1, line, ret);
+				write (1, "\n", 1);
 				free(line);
 			}
 			reader_destroy(r);

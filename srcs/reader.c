@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/10/03 00:24:10 by pducos           ###   ########.fr       */
+/*   Updated: 2022/10/03 00:31:02 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static bool	init_buf(t_reader *r, uint8_t **buf, size_t *size)
 	}
 	else
 	{
-		if (!r_alloc((void **)buf, INITIAL_CAP + 1))
+		if (!r_alloc((void **)buf, INITIAL_CAP))
 			return (false);
 		r->cap = INITIAL_CAP;
 		*size = 0;
