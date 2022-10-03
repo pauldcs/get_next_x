@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/10/03 00:48:05 by pducos           ###   ########.fr       */
+/*   Updated: 2022/10/03 02:15:51 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static bool	init_buf(t_reader *r, uint8_t **buf, size_t *size)
 	}
 	else
 	{
-		if (!r_alloc(buf, INITIAL_CAP))
+		if (!r_alloc(buf, BUF_SIZE))
 			return (false);
-		r->cap = INITIAL_CAP;
+		r->cap = BUF_SIZE;
 		*size = 0;
 	}
 	return (true);
@@ -56,8 +56,7 @@ static bool	search_char(t_reader *r, char *sep, uint8_t *buf, size_t len)
 		r->checked++;
 		if (!is_sep(sep, *ptr) && ptr++)
 			continue ;
-		*ptr++ = '\0';
-		len -= ptr - buf;
+		len -= ++ptr - buf;
 		if (len)
 		{
 			if (!r_alloc(&r->save.buf, len)
@@ -83,10 +82,11 @@ ssize_t	reader(uint8_t **buf, t_reader *r, char *sep)
 	while (!search_char(r, sep, *buf, size))
 	{
 		if (size >= r->cap
-			&& !r_realloc((void *)buf, &r->cap, size, r->cap * 2))
+			&& !r_realloc(buf, &r->cap, size, 2 * r->cap))
 			return (-1);
-		ret = read(r->fd, &(*buf)[size], r->cap - size);
-		if (ret == -1 || (!ret && !size))
+		ret = read(r->fd, *buf + size, r->cap - size);
+		if (ret == -1
+			|| (!ret && !size))
 			return (free(*buf), -1);
 		else if (!ret)
 			return (size);

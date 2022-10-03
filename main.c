@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:08:32 by pducos            #+#    #+#             */
-/*   Updated: 2022/10/03 00:33:33 by pducos           ###   ########.fr       */
+/*   Updated: 2022/10/03 01:28:59 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int ac, char **av)
 	ssize_t			ret;
 	t_reader		*r;
 
-	line = NULL;
 	if (ac == 2)
 	{
 		r = reader_init(av[1]);
@@ -31,7 +30,6 @@ int	main(int ac, char **av)
 		{
 			while ((ret = reader(&line, r, "\n")) != -1)
 			{
-				//printf ("%s\n", line);
 				write (1, line, ret);
 				write (1, "\n", 1);
 				free(line);

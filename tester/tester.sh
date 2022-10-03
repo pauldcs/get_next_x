@@ -61,7 +61,7 @@ for file in $TEST_FILES; do
 	else
 		./reader $file | xxd > .out
 	fi
-	printf "$(basename $file) " && python3 -c "print(('.' * (40 - len('$file'))), end='')" 
+	printf "$(basename $file)" && python3 -c "print(('.' * (40 - len('$file'))), end='')" 
 	check_diff
 done
 rm -f log.txt

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reader.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pducos <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:09:56 by pducos            #+#    #+#             */
-/*   Updated: 2022/10/03 00:50:19 by pducos           ###   ########.fr       */
+/*   Updated: 2022/10/03 02:16:13 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdint.h>
 # include <stddef.h>
 
-# define INITIAL_CAP 64
+# define BUF_SIZE 64
 
 typedef struct s_reader
 {
