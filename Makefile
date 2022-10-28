@@ -9,7 +9,7 @@ $(OBJS_DIR)/%.o:$(SRCS_DIR)/%.c
 all: $(NAME)
 
 $(NAME): $(SRCS_OBJS)
-	$(CC) $(CFLAGS) -o $(NAME) main.c $(SRCS_OBJS) -I.
+	$(CC) $(CFLAGS) -o $(NAME) test_main.c $(SRCS_OBJS) -I.
 
 test: all
 	@bash tester/tester.sh

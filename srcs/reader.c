@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/10/03 02:15:51 by pducos           ###   ########.fr       */
+/*   Updated: 2022/10/28 21:45:37 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static bool	is_sep(char *sep, int c)
+static inline bool	is_sep(char *sep, int c)
 {
 	while (*sep)
 	{
