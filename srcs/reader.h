@@ -6,7 +6,7 @@
 /*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:09:56 by pducos            #+#    #+#             */
-/*   Updated: 2022/10/28 21:44:36 by pducos           ###   ########.fr       */
+/*   Updated: 2022/10/28 21:52:35 by pducos           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include <stdint.h>
 # include <stddef.h>
 
-# define BUF_SIZE 64
+# define BUFF_SIZE 64
+# define R_ERROR  -1
 
 typedef struct s_reader
 {

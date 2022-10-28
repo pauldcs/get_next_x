@@ -1,21 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   reader.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pducos <pducos@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/12 16:17:02 by pducos            #+#    #+#             */
-/*   Updated: 2022/10/28 21:45:37 by pducos           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "reader.h"
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-static inline bool	is_sep(char *sep, int c)
+static bool	is_sep(char *sep, int c)
 {
 	while (*sep)
 	{
@@ -27,20 +15,23 @@ static inline bool	is_sep(char *sep, int c)
 }
 
 static bool	init_buf(t_reader *r, uint8_t **buf, size_t *size)
-{	
+{
 	if (r->save.buf)
 	{
-		*buf = (uint8_t *)r->save.buf;
+		*buf = r->save.buf;
 		*size = r->save.size;
 		r->cap = *size;
 	}
 	else
 	{
-		if (!r_alloc(buf, BUF_SIZE))
-			return (false);
-		r->cap = BUF_SIZE;
+		r->cap = BUFF_SIZE;
 		*size = 0;
+		if (!r_alloc(buf, BUFF_SIZE))
+			return (false);
 	}
+	r->save.buf = NULL;
+	r->save.size = 0;
+	r->checked = 0;
 	return (true);
 }
 
@@ -56,7 +47,8 @@ static bool	search_char(t_reader *r, char *sep, uint8_t *buf, size_t len)
 		r->checked++;
 		if (!is_sep(sep, *ptr) && ptr++)
 			continue ;
-		len -= ++ptr - buf;
+		*ptr++ = 0;
+		len -= ptr - buf;
 		if (len)
 		{
 			if (!r_alloc(&r->save.buf, len)
@@ -75,19 +67,16 @@ ssize_t	reader(uint8_t **buf, t_reader *r, char *sep)
 	int		ret;
 
 	if (!init_buf(r, buf, &size))
-		return (-1);
-	r->save.buf = NULL;
-	r->save.size = 0;
-	r->checked = 0;
+		return (R_ERROR);
 	while (!search_char(r, sep, *buf, size))
 	{
 		if (size >= r->cap
 			&& !r_realloc(buf, &r->cap, size, 2 * r->cap))
-			return (-1);
+			return (R_ERROR);
 		ret = read(r->fd, *buf + size, r->cap - size);
 		if (ret == -1
 			|| (!ret && !size))
-			return (free(*buf), -1);
+			return (free(*buf), R_ERROR);
 		else if (!ret)
 			return (size);
 		size += ret;
